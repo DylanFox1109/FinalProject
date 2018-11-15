@@ -1,4 +1,4 @@
-CSC 337 Final Project of Your Own Design
+<h1>CSC 337 Final Project of Your Own Design<h1>
 Specifications are ALWAYS Subject to Change
 Final Team of 2 Project of Your Own Design
 
