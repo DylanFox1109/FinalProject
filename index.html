@@ -22,16 +22,16 @@
 		var ajax = new XMLHttpRequest();				
 		if (e.keyCode == '38') {
 			// up arrow
-			ajax.open("GET", "maze.php?up=1", true);
+			ajax.open("GET", "maze.php?up=", true);
 		} else if (e.keyCode == '40') {
 			// down arrow
-			ajax.open("GET", "maze.php?down=1", true);
+			ajax.open("GET", "maze.php?down=", true);
 		} else if (e.keyCode == '37') {
 			// left arrow
-			ajax.open("GET", "maze.php?left=1", true);
+			ajax.open("GET", "maze.php?left=", true);
 		} else if (e.keyCode == '39') {
 			// right arrow
-			ajax.open("GET", "maze.php?right=1", true);
+			ajax.open("GET", "maze.php?right=", true);
 		}			
 		ajax.send();
 		ajax.onreadystatechange = function() {
