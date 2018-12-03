@@ -109,8 +109,7 @@
 		        return $this->toString();
 		}
 		
-		public function right() {
-		    
+		public function right() {		    
 		    //check for collision
 		    if ($this->maze[$this->y][$this->x]->right === true || $this->maze[$this->y][$this->x+1]->left === true){
 		        return $this->toString();		        

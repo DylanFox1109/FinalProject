@@ -3,7 +3,7 @@ body {background-color: coral;}
 #header {
 	background-color: grey;
 	box-shadow: 0 5px 5px silver;
-	height: 80px;
+	height: 104px;
 	position: relative;
 }
 
@@ -26,4 +26,35 @@ body {background-color: coral;}
 #maze {
 	float: left;
 	margin-left: 5%;
+}
+
+table {
+	width: 40vw;
+	height: 40vw;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+td {
+	background-color: grey;
+}
+
+.top {
+	border-top: 3px solid black;
+}
+
+.bottom {
+	border-bottom: 3px solid black;
+}
+
+.right {
+	border-right: 3px solid black;
+}
+
+.left {
+	border-left: 3px solid black;
+}
+
+.marker {
+	background-color: coral;
 }
