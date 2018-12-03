@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="index.css" />
+<meta charset="UTF-8">
+<title>Maze</title>
+<script>
+	function loadMaze() {
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "maze.php", true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('maze').innerHTML += ajax.responseText;
+
+			}
+		}
+	}
+
+	function checkKey(e) {
+		e = e || window.event;		
+		var ajax = new XMLHttpRequest();				
+		if (e.keyCode == '38') {
+			// up arrow
+			ajax.open("GET", "maze.php?up=1", true);
+		} else if (e.keyCode == '40') {
+			// down arrow
+			ajax.open("GET", "maze.php?down=1", true);
+		} else if (e.keyCode == '37') {
+			// left arrow
+			ajax.open("GET", "maze.php?left=1", true);
+		} else if (e.keyCode == '39') {
+			// right arrow
+			ajax.open("GET", "maze.php?right=1", true);
+		}			
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('maze').innerHTML = ajax.responseText;				
+			}
+		}
+	}
+
+	document.onkeydown = checkKey;
+	window.onload = loadMaze;
+</script>
+</head>
+<style>
+html, body {
+	height: 100%;
+}
+
+table {
+	width: 40vw;
+	height: 40vw;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+td {
+	background-color: grey;
+}
+
+.top {
+	border-top: 3px solid black;
+}
+
+.bottom {
+	border-bottom: 3px solid black;
+}
+
+.right {
+	border-right: 3px solid black;
+}
+
+.left {
+	border-left: 3px solid black;
+}
+
+.marker {
+	background-color: #f49242;
+}
+</style>
+<body>
+	<div id="header">
+		<div>
+			<h1>Maze</h1>
+		</div>
+	</div>
+	
+	<div id='content'>
+		<div id='maze'></div>
+		<div id='scores'>
+		</div>
+	</div>	
+</body>
+</html>

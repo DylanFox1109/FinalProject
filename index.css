@@ -1,0 +1,27 @@
+#header {
+	background-color: grey;
+	box-shadow: 0 5px 5px silver;
+	height: 80px;
+	position: relative;
+}
+
+#content {
+	padding: 10px;
+}
+
+#scores {
+	height: 60%;
+	width: 20%;
+	border-style: solid;
+	border-radius: 5px;
+	border: 2px solid black;
+	background-color: grey;
+	margin-right: 15%;
+	height: 400px;
+	float: right;
+}
+
+#maze {
+	float: left;
+	margin-left: 5%;
+}
