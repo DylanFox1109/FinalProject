@@ -1,11 +1,23 @@
-body {background-color: #0000CC;}
+body {
+	background-color: #0000CC;
+	background-image: url("./images/background.jpg");
+}
 
 #header {
-	background-color: grey;
-	box-shadow: 0 5px 5px silver;
+	background-image: url("./images/banner.png");
+	box-shadow: 0 5px 5px grey;
 	height: 104px;
 	position: relative;
 	margin-bottom: 2%;
+}
+
+#header>div {
+	bottom: 0px;
+	color: grey;
+	font-family:  Impact, sans-serif;
+	font-size: 60pt;
+	position: absolute;
+	left: 10%;
 }
 
 .content {

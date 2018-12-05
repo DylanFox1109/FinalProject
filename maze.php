@@ -4,16 +4,20 @@
 	    $_SESSION['maze'] = new Maze();
 	}	
 	else {
-	    if(isset($_GET["up"]))
-	        $_SESSION['maze']->up();
-        else if(isset($_GET["right"]))
-            $_SESSION['maze']->right();
-        else if(isset($_GET["down"]))
-            $_SESSION['maze']->down();
-        else if(isset($_GET["left"]))
-            $_SESSION['maze']->left();
-        else if(isset($_GET["new"]))
-                $_SESSION['maze'] = new Maze();
+	    try{
+	        if(isset($_GET["up"]))
+	            $_SESSION['maze']->up();
+	            else if(isset($_GET["right"]))
+	                $_SESSION['maze']->right();
+	                else if(isset($_GET["down"]))
+	                    $_SESSION['maze']->down();
+	                    else if(isset($_GET["left"]))
+	                        $_SESSION['maze']->left();
+	                        else if(isset($_GET["new"]))
+	                            $_SESSION['maze'] = new Maze();
+	    } catch (Exception $e) {
+	        echo "You Win! ";
+	    }
 	}
 	
     echo $_SESSION['maze']->toString();
@@ -76,22 +80,26 @@
 		}
 		
 		public function up() {
-		    //check for collision
-		    if ($this->maze[$this->y][$this->x]->top === true || $this->maze[$this->y-1][$this->x]->bottom === true)
-		        return $this->toString();
-	        
-	        //move maze pos
-	        $this->maze[$this->y][$this->x]->marker = false;
-	        $this->y -= 1;
-	        $this->maze[$this->y][$this->x]->marker = true;
+	        //check for collision
+	        if ($this->maze[$this->y][$this->x]->top === true || $this->maze[$this->y-1][$this->x]->bottom === true){
+	            return $this->toString();
+	        }
+            
+            //move maze pos
+            $this->maze[$this->y][$this->x]->marker = false;
+            $this->y -= 1;
+            $this->maze[$this->y][$this->x]->marker = true;		   		    
 	        return $this->toString();
 		}
 		
 		public function down() {
-		    //check for collision		    		    
+		    //check for collision		 
+		    if($this->y+1 >= count($this->maze))
+		        return $this->toString();	
+		    
 	        if ($this->maze[$this->y][$this->x]->bottom === true || $this->maze[$this->y+1][$this->x]->top === true)
-	            return $this->toString();
-	        
+		            return $this->toString();		    
+		    
 	        //move maze pos
             $this->maze[$this->y][$this->x]->marker = false;
 	        $this->y += 1;
