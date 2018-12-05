@@ -24,7 +24,7 @@
 	
 	// initial page load counter from previos session if one exists or create one
 	function loadCounter() {
-		if (sessionStorage.getItem("MAZE_MOVES") == "NaN") {
+		if (!sessionStorage.getItem("MAZE_MOVES")) {
 			sessionStorage.setItem("MAZE_MOVES", 0);
 		}
 		document.getElementById('count').innerHTML = 'Move Count: '
@@ -65,13 +65,12 @@
 	/////////////         check if logged in with sessionStorage.getItem("username") == username if so then set 'login'.innerHTML HTML welcome message
 	/////////////		  else return HTML code back of login form///////////
 	function loadLogin() {
-		var ajax = new XMLHttpRequest();
-		ajax.open("GET", "login.php", true);
-		ajax.send();
-		ajax.onreadystatechange = function() {
-			if (ajax.readyState == 4 && ajax.status == 200) {
-				document.getElementById('login').innerHTML = ajax.responseText;
-			}
+		if (sessionStorage.getItem("username")){
+			document.getElementById('login').innerHTML = "Welcome, " + ajax.responseText;
+			document.getElementById('login').setAttribute("style", "color: coral");
+		}
+		else {			
+			document.getElementById('login').innerHTML = '<input type="text" id = "username" placeholder="Username" required><input type="password" id = "password" placeholder="Password" required><button class="loginButton" onclick = "onLogin()">Login</button><button class="loginButton" onclick = "onRegister()">Register</button>';	 
 		}
 	}
 	
@@ -85,14 +84,10 @@
 		ajax.send();
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-				document.getElementById('login').innerHTML = ajax.responseText;
+				sessionStorage.setItem("username") = ajax.responseText;
+				document.getElementById('login').innerHTML = "Welcome, " + ajax.responseText;
 			}
-		}
-		//UNFINISHED - If register is successfull then do sessionStorage.setItem("login") = username
-		//
-		//
-		//
-		//////////////////////////////////////////////////////////////////////////////			
+		}		
 	}	
 	
 	function onLogin() {
@@ -103,21 +98,24 @@
 		ajax.open("GET", "login.php?login=" + username + "&pass=" + password, true);
 		ajax.send();
 		ajax.onreadystatechange = function() {
-			if (ajax.readyState == 4 && ajax.status == 200) {
-				document.getElementById('login').innerHTML = ajax.responseText;
+			if (ajax.readyState == 4 && ajax.status == 200) {				
+				if (ajax.responseText == 'Incorrect password'){
+					loadLogin();
+					document.getElementById('login').innerHTML += "<br> Incorrect password";					
+				} else {
+					sessionStorage.setItem("username") = ajax.responseText;
+					document.getElementById('login').innerHTML = "Welcome, " + ajax.responseText;	
+				}
 			}
-		}
-		
-		//UNFINISHED - If login is successfull then do sessionStorage.setItem("login") = username
-		//
-		//
-		//
-		//////////////////////////////////////////////////////////////////////////////		
+		}	
 	}
 	
 
 	// Key Press Event Handler
 	function checkKey(e) {
+		if(!sessionStorage.getItem("username"))
+			return;
+		
 		e = e || window.event;
 		var ajax = new XMLHttpRequest();
 		if (e.keyCode == '38') {
@@ -142,7 +140,7 @@
 					curMaze = ajax.responseText;
 					//check for win
 					if (curMaze.includes('Congratulations You Won!')) {
-						onWin(sessionStorage.getItem("login"), sessionStorage.getItem("MAZE_MOVES"));
+						onWin(sessionStorage.getItem("username"), sessionStorage.getItem("MAZE_MOVES"));
 					}						
 					moveCounter();
 					document.getElementById('maze').innerHTML = curMaze;
@@ -189,7 +187,7 @@
 </head>
 <body>
 	<div id="header">
-		<div class='leftFloat'>
+		<div class='headerDiv'>
 			Maze Sprinter
 		</div>
 		<div id='login' class='login'> </div>

@@ -1,21 +1,7 @@
 <?php
 
 require_once('database.php');
-
 session_start();
-
-
-
-// if (! isset ( $_SESSION['login']) ){
-//     echo '<input type="text" id = "username" placeholder="Username" required><br>
-//          <input type="password" id = "password" placeholder="Password" required><br>
-//          <button onclick = "onLogin()">Login</button><button onclick = "onRegister()">Register</button><br>';
-    
-// } else {
-//     echo 'Welcome back!';
-// }
-
-
 
 if( isset($_GET['register'])) {
     
@@ -30,7 +16,7 @@ if( isset($_GET['register'])) {
     if (checkExistance($username, $arr) == false) {
         $theDBA->addAccount($ID, $username, $hash);
         $_SESSION['login'] = 1;
-        echo 'Welcome ' . $username . '!';
+        echo $username;
         $_SESSION['login'] = 1;
         $_SESSION['id'] = $username;
     }
@@ -44,7 +30,7 @@ if( isset($_GET['register'])) {
      $theDBA = new DatabaseAdaptor();
      $arr = $theDBA->getPassword();
      if(checkLogin($arr, $username, $password)) {
-         echo 'Welcome back ' . $username . '!';
+         echo $username;
          $_SESSION['login'] = 1;
          $_SESSION['id'] = $username;
      }
@@ -52,17 +38,7 @@ if( isset($_GET['register'])) {
          echo 'Incorrect password';
      }
  }
- 
- if (! isset ( $_SESSION['login'])) {
-     echo '
-    <input type="text" id = "username" placeholder="Username" required>
-    <input type="password" id = "password" placeholder="Password" required>
-    <button class="loginButton" onclick = "onLogin()">Login</button><button class="loginButton" onclick = "onRegister()">Register</button>';
- } 
- else if (isset ( $_SESSION['login']) && !isset($_GET['pass'])) {
-     echo 'Welcome back ' . $_SESSION['id'] . '!';
- }
- 
+
  //returns true if username already exists. False otherwise
  function checkExistance($username, $arr) {
      for($i = 0; $i < count($arr); $i++) {

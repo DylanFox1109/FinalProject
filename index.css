@@ -10,7 +10,8 @@ body {
 	margin-bottom: 2%;
 }
 
-#header>div {
+.headerDiv {
+	float: left;
 	bottom: 0px;
 	color: grey;
 	font-family:  Impact, sans-serif;
@@ -64,6 +65,8 @@ button:hover {
 .rightPanel {
 	float: right;
 	margin-right:10%;
+	max-width: 25%;
+	width: 25%;
 }
 
 .count {
@@ -111,10 +114,13 @@ table {
 }
 
 .login {
+	margin-right: 10%;
 	float: right;
 	margin-left: 45%;
-	margin-bottom: 15px;
-	bottom: 0px;
+	margin-top: 45PX;		
+	color: red;
+	font-family:  Impact, sans-serif;
+	font-size: 18pt;
 }
 
 td {

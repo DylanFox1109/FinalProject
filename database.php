@@ -12,7 +12,7 @@ Class DatabaseAdaptor {
             $this->DB->setAttribute ( PDO::ATTR_ERRMODE,
                 PDO::ERRMODE_EXCEPTION );
         } catch ( PDOException $e ) {
-            echo ('Error establishing Connection');
+            echo "Error Connection Not Established";
             exit ();
         }
     }
