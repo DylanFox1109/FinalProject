@@ -65,6 +65,7 @@
 	/////////////         check if logged in with sessionStorage.getItem("username") == username if so then set 'login'.innerHTML HTML welcome message
 	/////////////		  else return HTML code back of login form///////////
 	function loadLogin() {
+		sessionStorage.setItem("MAZE_MOVES", 0);
 		if (sessionStorage.getItem("username")){
 			document.getElementById('login').innerHTML = "Welcome, " + ajax.responseText;
 			document.getElementById('login').setAttribute("style", "color: coral");
@@ -75,7 +76,7 @@
 	}
 	
 	///////////// SCOTT - function should be called on register button press///////////
-	function onRegister() {
+	function onRegister() {		
 		var username = document.getElementById('username').value;
 		var password = document.getElementById('password').value;	
 		
@@ -86,11 +87,12 @@
 			if (ajax.readyState == 4 && ajax.status == 200) {
 				sessionStorage.setItem("username") = ajax.responseText;
 				document.getElementById('login').innerHTML = "Welcome, " + ajax.responseText;
+				sessionStorage.setItem("MAZE_MOVES", 0);
 			}
 		}		
 	}	
 	
-	function onLogin() {
+	function onLogin() {		
 		var username = document.getElementById('username').value;
 		var password = document.getElementById('password').value;
 		
@@ -105,6 +107,7 @@
 				} else {
 					sessionStorage.setItem("username") = ajax.responseText;
 					document.getElementById('login').innerHTML = "Welcome, " + ajax.responseText;	
+					sessionStorage.setItem("MAZE_MOVES", 0);
 				}
 			}
 		}	
