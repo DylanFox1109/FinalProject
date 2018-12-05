@@ -1,6 +1,6 @@
 <?php
 	session_start();	
-	if(!isset($_SESSION['maze'])){
+	if(!isset($_SESSION['maze']) or ($_SESSION['maze'] === 'null')){
 	    $_SESSION['maze'] = new Maze();
 	}	
 	else {
@@ -12,6 +12,8 @@
             $_SESSION['maze']->down();
         else if(isset($_GET["left"]))
             $_SESSION['maze']->left();
+        else if(isset($_GET["new"]))
+                $_SESSION['maze'] = new Maze();
 	}
 	
     echo $_SESSION['maze']->toString();

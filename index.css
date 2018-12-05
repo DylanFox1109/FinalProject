@@ -73,6 +73,11 @@ table {
 	table-layout: fixed;
 }
 
+.login {
+	float: right;
+	margin-right: 5%;
+}
+
 td {
 	background-color: grey;
 }

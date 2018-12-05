@@ -24,7 +24,7 @@
 	
 	// initial page load counter from previos session if one exists or create one
 	function loadCounter() {
-		if (typeof sessionStorage.getItem("MAZE_MOVES") == "NaN") {
+		if (sessionStorage.getItem("MAZE_MOVES") == "NaN" || "null") {
 			sessionStorage.setItem("MAZE_MOVES", 0);
 		}
 		document.getElementById('count').innerHTML = 'Move Count: '
@@ -60,6 +60,57 @@
 			}
 		}
 	}
+	
+	///////////// SCOTT - when the php script is called with no varables set then 
+	/////////////         check if logged in $_SESSION['login'] == 1 if so return HTML welcome message
+	/////////////		  else return HTML code back of login form///////////
+	function loadLogin() {
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "login.php", true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('login').innerHTML = ajax.responseText;
+			}
+		}
+	}
+	
+	///////////// SCOTT - function should be called on register button press///////////
+	function onRegister() {
+		//UNFINISHED - Get username and pass from form and set variable for below code		
+		//
+		//
+		//
+		//////////////////////////////////////////////////////////////////////////////
+		
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "login.php?register=" + username + "&pass=" + password, true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('login').innerHTML = ajax.responseText;
+			}
+		}
+	}
+	
+	///////////// SCOTT - function should be called on login button press///////////
+	function onLogin() {
+		//UNFINISHED - Get username and pass from form and set variable for below code
+		//
+		//
+		//
+		//////////////////////////////////////////////////////////////////////////////
+		
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "login.php?login=" + username + "&pass=" + password, true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('login').innerHTML = ajax.responseText;
+			}
+		}
+	}
+	
 
 	// Key Press Event Handler
 	function checkKey(e) {
@@ -100,6 +151,25 @@
 				+ sessionStorage.getItem("MAZE_MOVES");
 	}
 	
+	// function called when new game button click event occurs
+	function newGame() {
+		//clear counter
+		sessionStorage.clear();
+		loadCounter();
+		
+		//clear maze and load new 
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "maze.php?new=", true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				curMaze = ajax.responseText
+				document.getElementById('maze').innerHTML = curMaze;
+
+			}
+		}
+	}
+	
 	document.onkeydown = checkKey;
 	window.onload = function() {
 		loadMaze();
@@ -113,12 +183,13 @@
 		<div>
 			<h1>Maze</h1>
 		</div>
+		<div id='login' class='login'> </div>
 	</div>
 
 	<div id='content' class='content'>
 		<div class='leftPanel'>			
 			<div id='maze' class='maze'></div>
-			<button type="button">New Game</button>
+			<button type="button" onclick='newGame()'>New Game</button>
 		</div>
 		<div class='rightPanel'>
 			<div id='count' class='count'></div>
