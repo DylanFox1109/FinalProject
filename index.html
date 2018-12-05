@@ -28,6 +28,10 @@
 				+ sessionStorage.getItem("MAZE_MOVES");
 	}
 	
+	
+///////////// SCOTT  ///////////
+	//USAGE = if no variable is passed in the url then load then return the scoreboard from the database (occurs on inital page load)
+	// if username and count variable are set in url when scoreboard.php is called then process the game data and return the updated scoreboard as HTML.
 	function loadScoreboard() {
 		var ajax = new XMLHttpRequest();
 		ajax.open("GET", "scoreboard.php", true);
