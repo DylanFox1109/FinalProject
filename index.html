@@ -19,6 +19,40 @@
 			}
 		}
 	}
+	
+	function loadCounter() {
+		if (typeof sessionStorage.getItem("MAZE_MOVES") == "NaN") {
+			sessionStorage.setItem("MAZE_MOVES", 0);
+		}
+		document.getElementById('count').innerHTML = 'Move Count: '
+				+ sessionStorage.getItem("MAZE_MOVES");
+	}
+	
+	function loadScoreboard() {
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "scoreboard.php", true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('scores').innerHTML = ajax.responseText;
+			}
+		}
+	}
+	
+	
+	///////////// SCOTT  ///////////
+	//USAGE = if no variable is passed in the url then load then return the scoreboard from the database (occurs on inital page load)
+	// if username and count variable are set in url when scoreboard.php is called then process the game data and return the updated scoreboard as HTML.
+	function onWin(username, moveCount) {
+		var ajax = new XMLHttpRequest();
+		ajax.open("GET", "scoreboard.php?username=" + username + '&count=' + parseInt(moveCount), true);
+		ajax.send();
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+				document.getElementById('scores').innerHTML = ajax.responseText;
+			}
+		}
+	}
 
 	function checkKey(e) {
 		e = e || window.event;
@@ -53,22 +87,15 @@
 	function moveCounter() {
 		sessionStorage.setItem("MAZE_MOVES", parseInt(sessionStorage
 				.getItem("MAZE_MOVES")) + 1);
-		document.getElementById('count').innerHTML = 'Count: '
-				+ sessionStorage.getItem("MAZE_MOVES");
-	}
-
-	function loadCounter() {
-		if (typeof sessionStorage.getItem("MAZE_MOVES") == "NaN") {
-			sessionStorage.setItem("MAZE_MOVES", 0);
-		}
 		document.getElementById('count').innerHTML = 'Move Count: '
 				+ sessionStorage.getItem("MAZE_MOVES");
 	}
-
+	
 	document.onkeydown = checkKey;
 	window.onload = function() {
 		loadMaze();
 		loadCounter();
+		loadScoreboard();
 	}
 </script>
 </head>
