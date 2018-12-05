@@ -5,8 +5,10 @@
 <meta charset="UTF-8">
 <title>Maze</title>
 <script>
+	//Global variables 
 	var curMaze;
-
+	
+	// initial page load maze from previos session if one exists or create one
 	function loadMaze() {
 		var ajax = new XMLHttpRequest();
 		ajax.open("GET", "maze.php", true);
@@ -20,6 +22,7 @@
 		}
 	}
 	
+	// initial page load counter from previos session if one exists or create one
 	function loadCounter() {
 		if (typeof sessionStorage.getItem("MAZE_MOVES") == "NaN") {
 			sessionStorage.setItem("MAZE_MOVES", 0);
@@ -58,6 +61,7 @@
 		}
 	}
 
+	// Key Press Event Handler
 	function checkKey(e) {
 		e = e || window.event;
 		var ajax = new XMLHttpRequest();
@@ -88,6 +92,7 @@
 		}
 	}
 
+	// keeps count of total spaces moved
 	function moveCounter() {
 		sessionStorage.setItem("MAZE_MOVES", parseInt(sessionStorage
 				.getItem("MAZE_MOVES")) + 1);
@@ -113,7 +118,7 @@
 	<div id='content' class='content'>
 		<div class='leftPanel'>			
 			<div id='maze' class='maze'></div>
-			<button type="button">Click Me!</button>
+			<button type="button">New Game</button>
 		</div>
 		<div class='rightPanel'>
 			<div id='count' class='count'></div>

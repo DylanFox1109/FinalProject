@@ -1,11 +1,11 @@
-body {background-color: coral;}
+body {background-color: #0000CC;}
 
 #header {
 	background-color: grey;
 	box-shadow: 0 5px 5px silver;
 	height: 104px;
 	position: relative;
-	margin-bottom: 5%;
+	margin-bottom: 2%;
 }
 
 .content {
@@ -27,9 +27,18 @@ body {background-color: coral;}
 }
 
 button {
-	margin-left: 40%;
+	font-family: 'Lucida Console';
+	font-size: x-large;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: white;
+	margin-left: 28%;
 	margin-top: 5%;
 	padding: 10px;
+}
+
+button:hover {
+	background-color: green;
 }
 
 .leftPanel {
@@ -43,6 +52,8 @@ button {
 }
 
 .count {
+	font-family: 'Lucida Console';
+	background-color: white;
 	font-size: xx-large;
 	padding: 10px;	
 	text-align: center;
