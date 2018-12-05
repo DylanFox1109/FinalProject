@@ -1,5 +1,4 @@
 body {
-	background-color: #0000CC;
 	background-image: url("./images/background.jpg");
 }
 
@@ -34,6 +33,10 @@ body {
 }
 
 .maze {
+	text-align: center;
+	font-family: 'Lucida Console';
+	font-size: 30px;
+	color: coral;
 	padding-left: 5%;
 	float: left;
 }
@@ -79,6 +82,7 @@ button:hover {
 }
 
 table {
+	border: 3px solid coral;
 	width: 30vw;
 	height: 30vw;
 	border-collapse: collapse;

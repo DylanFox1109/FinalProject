@@ -24,7 +24,7 @@
 	
 	// initial page load counter from previos session if one exists or create one
 	function loadCounter() {
-		if (sessionStorage.getItem("MAZE_MOVES") == "NaN" || "null") {
+		if (sessionStorage.getItem("MAZE_MOVES") == "NaN") {
 			sessionStorage.setItem("MAZE_MOVES", 0);
 		}
 		document.getElementById('count').innerHTML = 'Move Count: '
@@ -62,7 +62,7 @@
 	}
 	
 	///////////// SCOTT - when the php script is called with no varables set then 
-	/////////////         check if logged in $_SESSION['login'] == 1 if so return HTML welcome message
+	/////////////         check if logged in with sessionStorage.getItem("username") == username if so return HTML welcome message
 	/////////////		  else return HTML code back of login form///////////
 	function loadLogin() {
 		var ajax = new XMLHttpRequest();
@@ -109,6 +109,12 @@
 				document.getElementById('login').innerHTML = ajax.responseText;
 			}
 		}
+		
+		//UNFINISHED - If login is successfull then do sessionStorage.setItem("login") = username
+		//
+		//
+		//
+		//////////////////////////////////////////////////////////////////////////////		
 	}
 	
 
@@ -134,8 +140,12 @@
 		ajax.send();
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-				if (ajax.responseText != curMaze) {
+				if (ajax.responseText != curMaze) {					
 					curMaze = ajax.responseText;
+					//check for win
+					if (curMaze.includes('Congratulations You Won!')) {
+						onWin(sessionStorage.getItem("login"), sessionStorage.getItem("MAZE_MOVES"));
+					}						
 					moveCounter();
 					document.getElementById('maze').innerHTML = curMaze;
 				}
@@ -154,7 +164,7 @@
 	// function called when new game button click event occurs
 	function newGame() {
 		//clear counter
-		sessionStorage.clear();
+		sessionStorage.setItem("MAZE_MOVES", 0);
 		loadCounter();
 		
 		//clear maze and load new 
