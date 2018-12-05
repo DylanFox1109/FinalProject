@@ -5,21 +5,24 @@
 <meta charset="UTF-8">
 <title>Maze</title>
 <script>
+	var curMaze;
+
 	function loadMaze() {
 		var ajax = new XMLHttpRequest();
 		ajax.open("GET", "maze.php", true);
 		ajax.send();
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-				document.getElementById('maze').innerHTML += ajax.responseText;
+				curMaze = ajax.responseText
+				document.getElementById('maze').innerHTML = curMaze;
 
 			}
 		}
 	}
 
 	function checkKey(e) {
-		e = e || window.event;		
-		var ajax = new XMLHttpRequest();				
+		e = e || window.event;
+		var ajax = new XMLHttpRequest();
 		if (e.keyCode == '38') {
 			// up arrow
 			ajax.open("GET", "maze.php?up=", true);
@@ -32,17 +35,41 @@
 		} else if (e.keyCode == '39') {
 			// right arrow
 			ajax.open("GET", "maze.php?right=", true);
-		}			
+		} else {
+			return;
+		}
 		ajax.send();
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-				document.getElementById('maze').innerHTML = ajax.responseText;				
+				if (ajax.responseText != curMaze) {
+					curMaze = ajax.responseText;
+					moveCounter();
+					document.getElementById('maze').innerHTML = curMaze;
+				}
 			}
 		}
 	}
 
+	function moveCounter() {
+		sessionStorage.setItem("MAZE_MOVES", parseInt(sessionStorage
+				.getItem("MAZE_MOVES")) + 1);
+		document.getElementById('count').innerHTML = 'Count: '
+				+ sessionStorage.getItem("MAZE_MOVES");
+	}
+
+	function loadCounter() {
+		if (typeof sessionStorage.getItem("MAZE_MOVES") == "NaN") {
+			sessionStorage.setItem("MAZE_MOVES", 0);
+		}
+		document.getElementById('count').innerHTML = 'Move Count: '
+				+ sessionStorage.getItem("MAZE_MOVES");
+	}
+
 	document.onkeydown = checkKey;
-	window.onload = loadMaze;
+	window.onload = function() {
+		loadMaze();
+		loadCounter();
+	}
 </script>
 </head>
 <body>
@@ -51,11 +78,16 @@
 			<h1>Maze</h1>
 		</div>
 	</div>
-	
-	<div id='content'>
-		<div id='maze'></div>
-		<div id='scores'>
+
+	<div id='content' class='content'>
+		<div class='leftPanel'>			
+			<div id='maze' class='maze'></div>
+			<button type="button">Click Me!</button>
 		</div>
-	</div>	
+		<div class='rightPanel'>
+			<div id='count' class='count'></div>
+			<div id='scores'></div>
+		</div>
+	</div>
 </body>
 </html>

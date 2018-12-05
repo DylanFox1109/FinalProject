@@ -99,7 +99,7 @@
 		
 		public function left() {
 		    //check for collision
-		    if ($this->maze[$this->y+1][$this->x]->left === true || $this->maze[$this->y][$this->x-1]->right === true)
+		    if ($this->maze[$this->y][$this->x]->left === true || $this->maze[$this->y][$this->x-1]->right === true)
 		        return $this->toString();
 		        
 		        //move maze pos
