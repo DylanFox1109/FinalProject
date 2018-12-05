@@ -41,7 +41,7 @@ body {
 	float: left;
 }
 
-button {
+.newGameButton {
 	font-family: 'Lucida Console';
 	font-size: x-large;
 	border: 2px solid black;
@@ -81,6 +81,27 @@ button:hover {
 	float: left;
 }
 
+input {
+	float: left;
+	margin-right: 10px;
+	
+}
+
+.leftFloat {
+	float: left;
+}
+
+.loginButton {
+	float: left;
+	margin-right: 10px;
+	font-family: 'Lucida Console';
+	font-size: large;
+	border: 2px solid black;
+	border-radius: 5px;
+	background-color: white;
+	padding: 3px;
+} 
+
 table {
 	border: 3px solid coral;
 	width: 30vw;
@@ -91,7 +112,9 @@ table {
 
 .login {
 	float: right;
-	margin-right: 5%;
+	margin-left: 45%;
+	margin-bottom: 15px;
+	bottom: 0px;
 }
 
 td {
